@@ -8,8 +8,8 @@
     <link href="css/index.css" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
-    <script defer src="js/materialize.js"></script>
     <script defer src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script defer src="js/materialize.js"></script>
     <script defer src="js/index.js"></script>
 
     <title>Ski or Surf</title>
@@ -17,12 +17,18 @@
   <body style="background-image: url(https://static.pexels.com/photos/32318/pexels-photo.jpg)">
 
     <!-- This needs to work -->
-    <ul id="slide-out" class="side-nav">
+    <!-- <ul id="slide-out" class="side-nav">
       <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
     </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse">
+    <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
       <i class="medium material-icons white-text">menu</i>
-    </a>
+    </a> -->
+    <ul id="slide-out" class="side-nav">
+      <li><a class="waves-effect" href="#!">Three Day Forecast</a></li>
+      <li><a class="waves-effect" href="http://www.surfline.com/surf-forecasts/spot/westport-olympic-peninsula_5067/">Westport/Olympic Peninsula Surfing</a></li>
+      <li><a class="waves-effect" href="http://forecast.weather.gov/MapClick.php?lat=46.92912043955674&lon=-121.50098133017309&site=sew&unit=0&lg=en&FcstType=text#.VJybVAABo">Crystal Mountain NOAA</a></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="medium material-icons white-text">menu</i></a>
 
     <div class="valign-wrapper container" id="index-banner">
       <h1 class="center-align white-text valign">Go Surfing at Twin Rivers Dude!</h1>
