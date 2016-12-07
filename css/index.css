@@ -3,6 +3,22 @@ body {
   height: 100vh;
 }
 
+#body-wrapper {
+  height: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 95%;
+}
+
+.button-collapse {
+  cursor: pointer;
+  float: left;
+}
+
 #index-banner {
-  height: 90%;
+  /*height: 90%;*/
+  top: 0;
 }
