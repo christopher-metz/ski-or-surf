@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
 
   $('.button-collapse').sideNav();
 
@@ -33,5 +32,7 @@
 
   createOptionStyle('surf', $carouselItems.first());
   createOptionStyle('work', $carouselItems.eq(1));
-  createOptionStyle('home', $carouselItems.last());
+  createOptionStyle('ski', $carouselItems.last());
+
+  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true, no_wrap: true});
 })();
