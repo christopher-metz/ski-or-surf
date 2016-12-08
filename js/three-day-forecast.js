@@ -31,8 +31,9 @@
   };
 
   createOptionStyle('surf', $carouselItems.first());
-  createOptionStyle('work', $carouselItems.eq(1));
-  createOptionStyle('ski', $carouselItems.last());
+  createOptionStyle('home', $carouselItems.eq(1));
+  createOptionStyle('sickSkiing', $carouselItems.last());
 
   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true, no_wrap: true});
+
 })();

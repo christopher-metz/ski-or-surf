@@ -3,7 +3,7 @@
 
   $('.button-collapse').sideNav();
 
-  const option = 'home';
+  const option = 'surf';
   const $body = $('body');
   const $h1 = $('h1');
   const $buttoncollapse = $('.button-collapse');
@@ -40,4 +40,326 @@
     $h1.prop('style=margin-top: 0.5rem');
     $buttoncollapse.addClass('grey-text text-darken-2');
   }
+
+  const normalizeScore = function(lowScore, highScore, score) {
+    const step = (highScore + Math.abs(lowScore)) / 11;
+    for (let i = 0; i < 11; i++) {
+      if (score >= (highScore - (step * (i + 1)))) {
+        return 10 - i;
+      }
+    }
+  };
+
+  const snowBaseScore = function(base) {
+    if (base >= 80) {
+      return 4;
+    }
+    else if (base < 80 && base >= 70) {
+      return 3;
+    }
+    else if (base < 70 && base >= 60) {
+      return 2;
+    }
+    else if (base < 60 && base >= 50) {
+      return 1;
+    }
+    else if (base < 50 && base >= 40) {
+      return 0;
+    }
+    else if (base < 40 && base >= 30) {
+      return -1;
+    }
+    else if (base < 30 && base >= 20) {
+      return -2;
+    }
+    else if (base < 20 && base >= 10) {
+      return -3;
+    }
+    else {
+      return -4;
+    }
+  };
+
+  const directionScore = function(sub, dir) {
+    let score;
+    if (dir >= 33.75 && dir <=56.25) {
+      score = -4;
+    }
+    else if ((dir >= 22.5 && dir < 33.75) || (dir > 56.25 && dir <= 67.5)) {
+      score = -3;
+    }
+    else if ((dir >= 0 && dir < 22.5) || (dir > 67.5 && dir <= 90)) {
+      score = -2;
+    }
+    else if ((dir >= 337.5 && dir <= 365) || (dir > 90 && dir <= 112.5)) {
+      score = -1;
+    }
+    else if ((dir >= 292.5 && dir < 337.5) || (dir > 112.5 && dir <= 157.5)) {
+      score = 0;
+    }
+    else if ((dir >= 270 && dir < 292.5) || (dir > 157.5 && dir <= 180)) {
+      score = 1;
+    }
+    else if ((dir >= 247.5 && dir < 270) || (dir > 180 && dir <= 202.5)) {
+      score = 2;
+    }
+    else if ((dir >= 236.25 && dir < 247.5) || (dir > 202.5 && dir <= 213.75)) {
+      score = 3;
+    }
+    else {
+      score = 4;
+    }
+    if (sub === 'swell') {
+      return score;
+    }
+    else {
+      return score * -1;
+    }
+  }
+
+  const direction = function(substance, directions) {
+    let counter = 0;
+    const tempScores = directions.map(function(element) {
+      return directionScore(substance, element);
+    });
+    const tempAvg = tempScores.reduce(function(result, element) {
+      counter += 1;
+      return result + element;
+    }, 0) / counter;
+    return tempAvg;
+  };
+
+  const windSpeedScores = function(element) {
+    if (element >= 3 && element <= 5) {
+      return 4;
+    }
+    else if (element < 3 || (element > 5 && element <= 7)) {
+      return 3;
+    }
+    else if (element > 7 && element <= 11) {
+      return 2;
+    }
+    else if (element > 11 && element <= 15) {
+      return 1;
+    }
+    else if (element > 15 && element <= 18) {
+      return 0;
+    }
+    else if (element > 18 && element <= 21) {
+      return -1;
+    }
+    else if (element > 21 && element <= 24) {
+      return -2;
+    }
+    else if (element > 24 && element <= 27) {
+      return -3;
+    }
+    else {
+      return -4;
+    }
+  };
+
+  const windSpeed = function(speeds) {
+    let counter = 0;
+    const tempScores = speeds.map(windSpeedScores);
+    const tempAvg = tempScores.reduce(function(result, element) {
+      counter += 1;
+      return result + element;
+    }, 0) / counter;
+    return tempAvg;
+  };
+
+  const swellHeightScore = function(element) {
+    if (element >= 4 && element <= 6) {
+      return 4;
+    }
+    else if ((element > 6 && element <= 8) || (element < 4 && element >= 3)) {
+      return 3;
+    }
+    else if ((element > 8 && element <= 10) || (element < 3 && element >= 2)) {
+      return 2;
+    }
+    else if ((element > 10 && element <= 12) || (element < 2 && element >= 1)) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  };
+
+  const swellHeight = function(heights) {
+    let counter = 0;
+    const tempScores = heights.map(swellHeightScore);
+    const tempAvg = tempScores.reduce(function(result, element) {
+      counter += 1;
+      return result + element;
+    }, 0) / counter;
+    return tempAvg;
+  };
+
+  const swellPeriodScore = function(element) {
+    if (element >= 16) {
+      return 4;
+    }
+    else if (element < 16 && element >= 12) {
+      return 3;
+    }
+    else if (element < 12 && element >= 8) {
+      return 2;
+    }
+    else {
+      return 1;
+    }
+  };
+
+  const swellPeriod = function(periods) {
+    let counter = 0;
+    const tempScores = periods.map(swellPeriodScore);
+    const tempAvg = tempScores.reduce(function(result, element) {
+      counter += 1;
+      return result + element;
+    }, 0) / counter;
+    return tempAvg;
+  };
+
+  const skiFunction = function(surfScoreN) {
+    let airTempScore = 0;
+    let newSnowScore = 0;
+
+    const $xhr = $.ajax({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/http://api.powderlin.es/station/1085:WA:SNTL?days=3',
+      dataType: 'json'
+    });
+
+    $xhr.done((data) => {
+      if ($xhr.status !== 200) {
+        return;
+      }
+
+      for (let i = 0; i < data.data.length; i++) {
+        if (data.data[i]['Air Temperature Observed (degF) Start of Day Values'] > 32) {
+          if (i === 0) {
+            airTempScore -= 1;
+          }
+          else if (i === 1) {
+            airTempScore -= 2;
+          }
+          else if (i === 2) {
+            airTempScore -= 3;
+          }
+          else {
+            airTempScore -= 4;
+          }
+        }
+      }
+
+      const baseScore = snowBaseScore(data.data[3]['Snow Depth (in) Start of Day Values']);
+
+      for (let i = 0; i < data.data.length; i++) {
+        const newSnow = data.data[i]['Change In Snow Depth (in)'];
+        if (newSnow >= 15) {
+          newSnowScore += 16;
+        }
+        else if (newSnow < 15 && newSnow > 0) {
+          newSnowScore += (Math.ceil(newSnow) + (i - 3));
+        }
+      }
+
+      const totalSnowScore = airTempScore + newSnowScore + baseScore;
+      const normalSkiScore = normalizeScore(-14, 62, totalSnowScore);
+      if (normalSkiScore >= surfScoreN) {
+        console.log('ski');
+      }
+      else {
+        console.log('surf');
+      }
+    });
+
+    $xhr.fail((err) => {
+      console.log(err);
+    });
+  };
+
+  const windFunction = function(scoresList) {
+    const windDirections = [];
+    const windVelocities = [];
+
+    const $xhr = $.ajax({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/http://api.surfline.com/v1/forecasts/5068?resources=wind,analysis&days=3&interpolate=true',
+      dataType: 'json'
+    });
+
+    $xhr.done((data) => {
+      if ($xhr.status !== 200) {
+        return;
+      }
+      windDirections.push(data.Wind.wind_direction[0][2]);
+      windDirections.push(data.Wind.wind_direction[0][3]);
+      windDirections.push(data.Wind.wind_direction[0][4]);
+
+      windVelocities.push(data.Wind.wind_speed[0][2]);
+      windVelocities.push(data.Wind.wind_speed[0][3]);
+      windVelocities.push(data.Wind.wind_speed[0][4]);
+
+      scoresList.push(direction('wind', windDirections));
+      scoresList.push(windSpeed(windVelocities));
+
+      const totalSurfScore = scoresList.reduce(function(result, element) {
+        return result + element;
+      }, 0).toFixed(2);
+
+      const normalSurfScore = normalizeScore(-11, 20, totalSurfScore);
+      skiFunction(normalSurfScore);
+    });
+
+    $xhr.fail((err) => {
+      console.log(err);
+    });
+  };
+
+  const surfFunction = function() {
+    const surfTotalScores = [];
+    const surfDirections = [];
+    const surfPeriods = [];
+    const surfHeights = [];
+
+    const $xhr = $.ajax({
+      method: 'GET',
+      url: 'https://cors-anywhere.herokuapp.com/http://api.surfline.com/v1/forecasts/5068?resources=surf,analysis&days=3&interpolate=true',
+      dataType: 'json'
+    });
+
+    $xhr.done((data) => {
+      if ($xhr.status !== 200) {
+        return;
+      }
+
+      surfHeights.push((data.Surf.surf_max[0][2] + data.Surf.surf_min[0][2]) / 2);
+      surfHeights.push((data.Surf.surf_max[0][3] + data.Surf.surf_min[0][3]) / 2);
+      surfHeights.push((data.Surf.surf_max[0][4] + data.Surf.surf_min[0][4]) / 2);
+
+      surfDirections.push(data.Surf.swell_direction1[0][2]);
+      surfDirections.push(data.Surf.swell_direction1[0][3]);
+      surfDirections.push(data.Surf.swell_direction1[0][4]);
+
+      surfPeriods.push(data.Surf.swell_period1[0][2]);
+      surfPeriods.push(data.Surf.swell_period1[0][3]);
+      surfPeriods.push(data.Surf.swell_period1[0][4]);
+
+      surfTotalScores.push(direction('swell', surfDirections));
+      surfTotalScores.push(swellHeight(surfHeights));
+      surfTotalScores.push(swellPeriod(surfPeriods));
+
+      windFunction(surfTotalScores);
+    });
+
+    $xhr.fail((err) => {
+      console.log(err);
+    });
+  };
+
+  surfFunction();
+
 })();
