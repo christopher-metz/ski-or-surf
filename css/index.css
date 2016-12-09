@@ -3,6 +3,10 @@ body {
   height: 100vh;
 }
 
+.blend {
+  mix-blend-mode: difference;
+}
+
 #body-wrapper {
   height: 100%;
 }
