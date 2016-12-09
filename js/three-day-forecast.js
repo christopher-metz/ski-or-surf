@@ -20,6 +20,12 @@
       $page.prop('style', 'background-image: url(https://www.skis.com/on/demandware.static/-/Sites-Skis-Library/default/dw83fb8f05/images/images%20for%20content/Skiing-deep-powder.gif)');
       $h1.text('Call In Siiiick! Grab The Snorkel! Go Skiing At Crystal!');
     }
+    else if (option === 'sickSurf') {
+      $body.prop('style', 'background-image: url(http://i.cdn-surfline.com/surfnews/images/2015/03_march/spotcheck_noosa/full/Tyack_Andrew.Warhurst_TeaTree_Noosa.jpg)');
+      $h1.text('Call In Siiiick! Grab The Board! Go Surfing At La Push!');
+      $h1.addClass('grey-text text-darken-2');
+      $buttoncollapse.addClass('grey-text text-darken-2');
+    }
     else if (option === 'work') {
       $page.prop('style', 'background-image: url(http://2.design-milk.com/images/2014/01/OXYMORON-Desk-Anna-Lotova-1.jpg)');
       $h1.text('Go To Work. It\'s not that good out there.');
@@ -31,8 +37,8 @@
   };
 
   createOptionStyle('surf', $carouselItems.first());
-  createOptionStyle('home', $carouselItems.eq(1));
-  createOptionStyle('sickSkiing', $carouselItems.last());
+  createOptionStyle('work', $carouselItems.eq(1));
+  createOptionStyle('home', $carouselItems.last());
 
   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true, no_wrap: true});
 
