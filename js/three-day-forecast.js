@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-
   $('.button-collapse').sideNav();
 
   const $carouselItems = $('.carousel-item');
 
   const createOptionStyle = function(option, $page) {
     const $h1 = $page.children();
+
     if (option === 'surf') {
       $page.prop('style', 'background-image: url(https://www.outsideonline.com/sites/default/files/styles/img_850x480/public/final-shot-pnw-surfing_h.jpg?itok=9iCsvMv5)');
       $h1.text('Go Surfing at Twin Rivers Dude!');
@@ -21,10 +21,8 @@
       $h1.text('Call In Siiiick! Grab The Snorkel! Go Skiing At Crystal!');
     }
     else if (option === 'sickSurf') {
-      $body.prop('style', 'background-image: url(http://i.cdn-surfline.com/surfnews/images/2015/03_march/spotcheck_noosa/full/Tyack_Andrew.Warhurst_TeaTree_Noosa.jpg)');
+      $page.prop('style', 'background-image: url(http://i.cdn-surfline.com/surfnews/images/2015/03_march/spotcheck_noosa/full/Tyack_Andrew.Warhurst_TeaTree_Noosa.jpg)');
       $h1.text('Call In Siiiick! Grab The Board! Go Surfing At La Push!');
-      $h1.addClass('grey-text text-darken-2');
-      $buttoncollapse.addClass('grey-text text-darken-2');
     }
     else if (option === 'work') {
       $page.prop('style', 'background-image: url(http://2.design-milk.com/images/2014/01/OXYMORON-Desk-Anna-Lotova-1.jpg)');
@@ -40,6 +38,5 @@
   createOptionStyle('work', $carouselItems.eq(1));
   createOptionStyle('home', $carouselItems.last());
 
-  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true, no_wrap: true});
-
+  $('.carousel.carousel-slider').carousel({ full_width: true, indicators: true, no_wrap: true });
 })();

@@ -51,6 +51,7 @@
 
   const normalizeScore = function(lowScore, highScore, score) {
     const step = (highScore + Math.abs(lowScore)) / 11;
+
     for (let i = 0; i < 11; i++) {
       if (score >= (highScore - (step * (i + 1)))) {
         return 10 - i;
@@ -90,7 +91,8 @@
 
   const directionScore = function(sub, dir) {
     let score;
-    if (dir >= 33.75 && dir <=56.25) {
+
+    if (dir >= 33.75 && dir <= 56.25) {
       score = -4;
     }
     else if ((dir >= 22.5 && dir < 33.75) || (dir > 56.25 && dir <= 67.5)) {
@@ -123,17 +125,19 @@
     else {
       return score * -1;
     }
-  }
+  };
 
   const direction = function(substance, directions) {
     let counter = 0;
-    const tempScores = directions.map(function(element) {
+    const tempScores = directions.map((element) => {
       return directionScore(substance, element);
     });
-    const tempAvg = tempScores.reduce(function(result, element) {
+    const tempAvg = tempScores.reduce((result, element) => {
       counter += 1;
+
       return result + element;
     }, 0) / counter;
+
     return tempAvg;
   };
 
@@ -170,10 +174,12 @@
   const windSpeed = function(speeds) {
     let counter = 0;
     const tempScores = speeds.map(windSpeedScores);
-    const tempAvg = tempScores.reduce(function(result, element) {
+    const tempAvg = tempScores.reduce((result, element) => {
       counter += 1;
+
       return result + element;
     }, 0) / counter;
+
     return tempAvg;
   };
 
@@ -198,10 +204,12 @@
   const swellHeight = function(heights) {
     let counter = 0;
     const tempScores = heights.map(swellHeightScore);
-    const tempAvg = tempScores.reduce(function(result, element) {
+    const tempAvg = tempScores.reduce((result, element) => {
       counter += 1;
+
       return result + element;
     }, 0) / counter;
+
     return tempAvg;
   };
 
@@ -223,10 +231,12 @@
   const swellPeriod = function(periods) {
     let counter = 0;
     const tempScores = periods.map(swellPeriodScore);
-    const tempAvg = tempScores.reduce(function(result, element) {
+    const tempAvg = tempScores.reduce((result, element) => {
       counter += 1;
+
       return result + element;
     }, 0) / counter;
+
     return tempAvg;
   };
 
@@ -266,6 +276,7 @@
 
       for (let i = 0; i < data.data.length; i++) {
         const newSnow = data.data[i]['Change In Snow Depth (in)'];
+
         if (newSnow >= 15) {
           newSnowScore += 16;
         }
@@ -277,6 +288,7 @@
       const totalSnowScore = airTempScore + newSnowScore + baseScore;
       const normalSkiScore = normalizeScore(-14, 62, totalSnowScore);
       const today = new Date().getDay();
+
       if (normalSkiScore >= surfScoreN) {
         if (today >= 1 && today <= 5 && normalSkiScore >= 9) {
           buildPage('sickSkiing');
@@ -337,11 +349,12 @@
       scoresList.push(direction('wind', windDirections));
       scoresList.push(windSpeed(windVelocities));
 
-      const totalSurfScore = scoresList.reduce(function(result, element) {
+      const totalSurfScore = scoresList.reduce((result, element) => {
         return result + element;
       }, 0).toFixed(2);
 
       const normalSurfScore = normalizeScore(-11, 20, totalSurfScore);
+
       skiFunction(normalSurfScore);
     });
 
@@ -367,9 +380,13 @@
         return;
       }
 
-      surfHeights.push((data.Surf.surf_max[0][2] + data.Surf.surf_min[0][2]) / 2);
-      surfHeights.push((data.Surf.surf_max[0][3] + data.Surf.surf_min[0][3]) / 2);
-      surfHeights.push((data.Surf.surf_max[0][4] + data.Surf.surf_min[0][4]) / 2);
+      let tempHeightAvg = (data.Surf.surf_max[0][2] + data.Surf.surf_min[0][2]) / 2;
+
+      surfHeights.push(tempHeightAvg);
+      tempHeightAvg = (data.Surf.surf_max[0][3] + data.Surf.surf_min[0][3]) / 2;
+      surfHeights.push(tempHeightAvg);
+      tempHeightAvg = (data.Surf.surf_max[0][4] + data.Surf.surf_min[0][4]) / 2;
+      surfHeights.push(tempHeightAvg);
 
       surfDirections.push(data.Surf.swell_direction1[0][2]);
       surfDirections.push(data.Surf.swell_direction1[0][3]);
@@ -392,5 +409,4 @@
   };
 
   surfFunction();
-
 })();
