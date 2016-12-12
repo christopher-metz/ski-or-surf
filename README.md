@@ -23,4 +23,4 @@ Surfline API, Powderlines API
 HTML, CSS, JavaScript, jQuery, Materialize, AJAX
 
 ###Future
-In the future I would love to open it up to all the surfing spots in Washington and all the best skiing regions. The user would then be able to add his or her own rules for conditions. This allows the user to know there own spot and what conditions are best for that place and add it to the website.
+In the future I would love to open it up to all the surfing spots in Washington and all the best skiing regions. The user would then be able to add his or her own rules for conditions. This allows the user to know there own spot and what conditions are best for that place and add it to the website. I would also like to add a loading bar if the API calls are taking too long. Lastly, I would like to add an API for great surfing and skiing photography as opposed to just the same picture every time.
