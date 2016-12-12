@@ -13,14 +13,14 @@ The primary user of this website is a busy skier and surfer in Western Washingto
 ### Solution
 This website allows him to quickly make a decision of what sport to do that day based off of weather conditions.
 
+###Features
+The main landing page is a nice photo and some text showing the user what to do that day and where to go. There is a menu icon in the top left that will open up a side bar with links to specific forecasting websites.
+
 ### Web APIs
 Surfline API, Powderlines API
 
 ### Technology
 HTML, CSS, JavaScript, jQuery, Materialize, AJAX
 
-### What was the most valuable piece of Customer feedback you received?
-The most valuable piece of customer feedback I received is to make the text blend in with the background better. It looks bad to just have plain black text.
-
-### What was the biggest challenge you had to overcome?
-Finding the right API to get data that will work for my weather models.
+###Future
+In the future I would love to open it up to all the surfing spots in Washington and all the best skiing regions. The user would then be able to add his or her own rules for conditions. This allows the user to know there own spot and what conditions are best for that place and add it to the website.
