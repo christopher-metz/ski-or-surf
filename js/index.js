@@ -84,9 +84,8 @@
     else if (base < 20 && base >= 10) {
       return -3;
     }
-    else {
-      return -4;
-    }
+
+    return -4;
   };
 
   const directionScore = function(sub, dir) {
@@ -122,9 +121,8 @@
     if (sub === 'swell') {
       return score;
     }
-    else {
-      return score * -1;
-    }
+
+    return score * -1;
   };
 
   const direction = function(substance, directions) {
@@ -166,9 +164,8 @@
     else if (element > 24 && element <= 27) {
       return -3;
     }
-    else {
-      return -4;
-    }
+
+    return -4;
   };
 
   const windSpeed = function(speeds) {
@@ -196,9 +193,8 @@
     else if ((element > 10 && element <= 12) || (element < 2 && element >= 1)) {
       return 1;
     }
-    else {
-      return 0;
-    }
+
+    return 0;
   };
 
   const swellHeight = function(heights) {
@@ -223,9 +219,8 @@
     else if (element < 12 && element >= 8) {
       return 2;
     }
-    else {
-      return 1;
-    }
+
+    return 1;
   };
 
   const swellPeriod = function(periods) {
